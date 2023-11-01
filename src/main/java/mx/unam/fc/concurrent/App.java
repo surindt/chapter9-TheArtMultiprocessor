@@ -64,9 +64,9 @@ public class App {
                 System.out.printf("Error %s\n", e.getMessage());
             }
           
-        executor.execute(new TaskCoarse("non", coarselist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para CoarseList
-        //executor.execute(new TaskLazy("non", lazylist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para LazyList
-        //executor.execute(new TaskLockFree("non", locklist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para LockFree
+        Future<Boolean> result = executor.submit(new CoarseCallable("non", coarselist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para CoarseList
+        //Future<Boolean> result = executor.submit(new LazyCallable("non", lazylist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para LazyList
+        //Future<Boolean> result = executor.submit(new LockFreeCallable("non", locklist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para LockFree
 
         executor.shutdown();//Detengo la pool de hilos
     }
