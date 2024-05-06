@@ -36,7 +36,7 @@ public class LockFreeCallable implements Callable<Boolean>{
             if (this.num == 110){//Para que un hilo imprima
                 
                 try {
-                    Thread.sleep(100); // Sleeping for 100ms
+                    Thread.sleep(1000); // Sleeping for 100ms
                     }
                     catch (InterruptedException e) {
                     System.out.format("Interrupted Exception: " + e.getMessage());

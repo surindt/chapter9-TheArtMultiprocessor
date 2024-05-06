@@ -20,6 +20,8 @@ public class LazyList {
     // Add sentinels to start and end
     this.head  = new NodeLazy(Integer.MIN_VALUE);
     this.head.next = new NodeLazy(Integer.MAX_VALUE);
+    System.out.println("Here___init");
+
   }
 
   /**
@@ -34,6 +36,8 @@ public class LazyList {
    * @return true iff element was not there already
    */
   public boolean add(String item) {
+    System.out.println("Here___ add");
+
     int key = item.hashCode();
     while (true) {
       NodeLazy pred = this.head;
@@ -103,6 +107,8 @@ public class LazyList {
    * @return true iff element is present
    */
   public boolean contains(String item) {
+    System.out.println("Here___ contains");
+
     int key = item.hashCode();
     NodeLazy curr = this.head;
     while (curr.key < key)
@@ -111,6 +117,7 @@ public class LazyList {
   }
 
   public void printList(){
+    System.out.println("Here___");
     NodeLazy pred, curr;
     pred = this.head;
     curr = pred.next;

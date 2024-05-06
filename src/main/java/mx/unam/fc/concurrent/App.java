@@ -13,15 +13,16 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 
+import java.util.concurrent.CompletableFuture;
+
 import mx.unam.fc.concurrent.callabletasks.CoarseCallable;
 import mx.unam.fc.concurrent.callabletasks.LazyCallable;
 import mx.unam.fc.concurrent.callabletasks.LockFreeCallable;
+
 import mx.unam.fc.concurrent.lists.CoarseGrained;
 import mx.unam.fc.concurrent.lists.LazyList;
 import mx.unam.fc.concurrent.lists.NonBlocking;
-import mx.unam.fc.concurrent.tasks.TaskCoarse;
-import mx.unam.fc.concurrent.tasks.TaskLazy;
-import mx.unam.fc.concurrent.tasks.TaskLockFree;
+
 import mx.unam.fc.concurrent.text.Set;
 
 import java.util.Random;
@@ -35,8 +36,8 @@ public class App {
         ExecutorService executor = Executors.newFixedThreadPool(90);//Creamos una pool de procesos de n hilos, intenta primero con tu num de procesos
 
         CoarseGrained coarselist = new CoarseGrained(); //instancia de la clase
-        LazyList lazylist = new LazyList();//instancia de la clase
-        NonBlocking locklist = new NonBlocking();//instancia de la clase
+        //LazyList lazylist = new LazyList();//instancia de la clase
+        //NonBlocking locklist = new NonBlocking();//instancia de la clase
 
 
         
@@ -48,23 +49,29 @@ public class App {
 		List<String> alphabetList = set.get();
 
             try {
+                
                 List<Future<Boolean>> futures = new ArrayList<Future<Boolean>>();
                 for (int i = 0; i < alphabetList.size(); i++) {//Vamos a crear distintas instancias de Tareas en el tamaño de la lista
                     int numRand = rand.nextInt(100);//Genero un numero random
-                    futures.add(executor.submit(new CoarseCallable(alphabetList.get(i), coarselist,numRand))); //Para ejecutar CoarseList
+                    //futures.add(executor.submit(new CoarseCallable(alphabetList.get(i), coarselist,numRand))); //Para ejecutar CoarseList
                     //futures.add(executor.submit(new LazyCallable(alphabetList.get(i), lazylist,numRand))); // Para ejecutar LazyList
-                    //futures.add(executor.submit(new LockFreeCallable(alphabetList.get(i), locklist,numRand))); //Para ejecutar LockFree
+                    futures.add(executor.submit(new LockFreeCallable(alphabetList.get(i), locklist,numRand))); //Para ejecutar LockFree
                 }
+                //CompletableFuture.anyOf(futures).join();
+
                 for (int i = 0; i < futures.size(); i++) {
+                    while(!futures.get(i).isDone());
                     Boolean result = futures.get(i).get();
                     //System.out.printf("\n Result: "+result);
+                    
                 }
+                
                 
             } catch (Exception e) {
                 System.out.printf("Error %s\n", e.getMessage());
             }
           
-        Future<Boolean> result = executor.submit(new CoarseCallable("non", coarselist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para CoarseList
+        //Future<Boolean> result = executor.submit(new CoarseCallable("non", coarselist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para CoarseList
         //Future<Boolean> result = executor.submit(new LazyCallable("non", lazylist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para LazyList
         //Future<Boolean> result = executor.submit(new LockFreeCallable("non", locklist,110));//ejecuto la tarea con num 110 que corresponde a imprimir después de 100ms para LockFree
 

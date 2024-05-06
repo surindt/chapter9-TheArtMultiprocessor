@@ -18,7 +18,11 @@ public class LazyCallable implements Callable<Boolean>{
     @Override
     public Boolean call(){
         try {
+      //      System.out.println("Here___ call try");
+
             if (this.num > 25 && this.num<100) {//Probabilidad de ejecutar contains de 75%
+                //System.out.println("Here___if contains");
+
                 this.lazylist.contains(this.item);
                 //System.out.println("Thead name: "+ Thread.currentThread().getName()+" contains: "+this.item); //Para ver como se ejecutan
     
@@ -36,12 +40,13 @@ public class LazyCallable implements Callable<Boolean>{
             if (this.num == 110){//Para que un hilo imprima
                 
                 try {
-                    Thread.sleep(100); // Sleeping for 100ms
+                    Thread.sleep(1000); // Sleeping for 100ms
                     }
                     catch (InterruptedException e) {
                     System.out.format("Interrupted Exception: " + e.getMessage());
                     e.printStackTrace();
                     }
+                    System.out.println("Here before print");
                 this.lazylist.printList();
             }
             return true;
