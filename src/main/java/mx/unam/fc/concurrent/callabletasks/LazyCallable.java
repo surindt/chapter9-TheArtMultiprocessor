@@ -24,19 +24,20 @@ public class LazyCallable implements Callable<Boolean>{
     
             }
             if (this.num < 13) {//Probabilidad de ejecutar add
-                //System.out.println("Thead name: "+ Thread.currentThread().getName()+" add: "+this.item); //Para ver como se ejecutan
+                System.out.println("Thead name: "+ Thread.currentThread().getName()+" add: "+this.item); //Para ver como se ejecutan
                 this.lazylist.add(this.item);
             }
             else{
             if (this.num < 25){//Probabilidad de ejecutar remove
-                //System.out.println("Thead name: "+ Thread.currentThread().getName()+" remove: "+this.item); //Para ver como se ejecutan
+                System.out.println("Thead name: "+ Thread.currentThread().getName()+" remove: "+this.item); //Para ver como se ejecutan
                 this.lazylist.remove(this.item);
             }}
             
             if (this.num == 110){//Para que un hilo imprima
+                System.out.println("HERE Thead name: "); //Para ver como se ejecutan
                 
                 try {
-                    Thread.sleep(100); // Sleeping for 100ms
+                    Thread.sleep(1000); // Sleeping for 100ms
                     }
                     catch (InterruptedException e) {
                     System.out.format("Interrupted Exception: " + e.getMessage());
