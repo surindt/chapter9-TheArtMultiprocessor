@@ -6,3 +6,5 @@ Uncomment the line 55 or the line 56 in App to execute the different lists imple
 The Lockfree implementation and the Lazy implementation should be more scalables than the Coarse Grained.
 
 Change
+
+Not Change plis
